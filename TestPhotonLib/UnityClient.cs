@@ -19,7 +19,30 @@ namespace TestPhotonLib
 
         protected override void OnOperationRequest(OperationRequest operationRequest, SendParameters sendParameters)
         {
-            Log.Debug("Unknown operation!");
+            switch (operationRequest.OperationCode)
+            {
+                case 1:
+                    if (operationRequest.Parameters.ContainsKey(1))
+                    {
+                        Log.Debug("recv:" + operationRequest.Parameters[1]);
+                        OperationResponse response = new OperationResponse(operationRequest.OperationCode);
+                        response.Parameters = new Dictionary<byte, object> { { 1, "response message" } };
+                        SendOperationResponse(response, sendParameters);
+                    }
+                    break;
+                case 2:
+                    if (operationRequest.Parameters.ContainsKey(1))
+                    {
+                        Log.Debug("recv:" + operationRequest.Parameters[1]);
+                        EventData eventdata = new EventData(1);
+                        eventdata.Parameters = new Dictionary<byte, object> { { 1, "response for event" } };
+                        SendEvent(eventdata, sendParameters);
+                    }
+                    break;
+                default:
+                    Log.Debug("Unknown OperationRequest received!:" + operationRequest.OperationCode);
+                    break;
+            }
         }
 
         protected override void OnDisconnect(DisconnectReason reasonCode, string reasonDetail)
