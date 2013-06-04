@@ -11,7 +11,7 @@ namespace TestPhotonLib
         {
             System.Console.WriteLine("[LOG]" + text);
 
-            //comment
+            //third comment
         }
     }
 }
