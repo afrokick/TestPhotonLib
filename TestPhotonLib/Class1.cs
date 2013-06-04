@@ -10,6 +10,8 @@ namespace TestPhotonLib
         public static void ShowMessage(string text)
         {
             System.Console.WriteLine("[LOG]" + text);
+
+            //third comment
         }
     }
 }
