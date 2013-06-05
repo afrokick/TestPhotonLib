@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
+using TestPhotonLib.Common;
 using UnityEngine;
 
 public class PhotonServer : MonoBehaviour, IPhotonPeerListener

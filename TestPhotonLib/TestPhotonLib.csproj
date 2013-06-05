@@ -69,6 +69,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="TestPhotonLib.Common\TestPhotonLib.Common.csproj">
+      <Project>{DF1E6CD1-8205-48D2-9D17-87C999678075}</Project>
+      <Name>TestPhotonLib.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
