@@ -22,7 +22,9 @@ public class PhotonServer : MonoBehaviour, IPhotonPeerListener
             DestroyObject(gameObject);
 
         DontDestroyOnLoad(gameObject);
+
         Application.runInBackground = true;
+
         _instance = this;
     }
 	// Use this for initialization
