@@ -60,18 +60,15 @@ public class PhotonServer : MonoBehaviour, IPhotonPeerListener
 
     public void DebugReturn(DebugLevel level, string message)
     {
-        
+        Debug.Log("DebugReturn level:" + level.ToString());
     }
 
     public void OnOperationResponse(OperationResponse operationResponse)
     {
         switch (operationResponse.OperationCode)
         {
-            case 1:
-                if (operationResponse.Parameters.ContainsKey(1))
-                {
-                    Debug.Log("recv:" + operationResponse.Parameters[1]);
-                }
+            case (byte)OperationCode.Login:
+                Debug.Log("Login returnCode:" + operationResponse.ReturnCode);
                 break;
             default:
                 Debug.Log("Unknown OperationResponse:" + operationResponse.OperationCode);
@@ -101,6 +98,7 @@ public class PhotonServer : MonoBehaviour, IPhotonPeerListener
         {
             case StatusCode.Connect:
                 Debug.Log("Connected to server!");
+                SendOperation();
                 break;
             case StatusCode.Disconnect:
                 Debug.Log("Disconnected from server!");
@@ -131,7 +129,8 @@ public class PhotonServer : MonoBehaviour, IPhotonPeerListener
 
     public void SendOperation()
     {
-        PhotonPeer.OpCustom(1, new Dictionary<byte, object> { { 1, "send message" } }, false);
+        PhotonPeer.OpCustom((byte) OperationCode.Login,
+                            new Dictionary<byte, object> {{(byte)ParameterCode.CharacterName, "MyNAme"}}, true);
     }
 
     public void SendOperation2()
