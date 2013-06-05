@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPhotonLib", "TestPhotonLib.csproj", "{2EBDA730-8F31-46B9-8EB1-AB07D8178EE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPhotonLib.Common", "TestPhotonLib.Common\TestPhotonLib.Common.csproj", "{DF1E6CD1-8205-48D2-9D17-87C999678075}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-vs", "..\PhotoClient\Assembly-CSharp-vs.csproj", "{950176E3-F8CB-8C2A-6E4C-F18804778D13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPhotonLib.Common", "..\TestPhotonLib.Common\TestPhotonLib.Common.csproj", "{DF1E6CD1-8205-48D2-9D17-87C999678075}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,14 +17,14 @@ Global
 		{2EBDA730-8F31-46B9-8EB1-AB07D8178EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EBDA730-8F31-46B9-8EB1-AB07D8178EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EBDA730-8F31-46B9-8EB1-AB07D8178EE5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF1E6CD1-8205-48D2-9D17-87C999678075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF1E6CD1-8205-48D2-9D17-87C999678075}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF1E6CD1-8205-48D2-9D17-87C999678075}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF1E6CD1-8205-48D2-9D17-87C999678075}.Release|Any CPU.Build.0 = Release|Any CPU
 		{950176E3-F8CB-8C2A-6E4C-F18804778D13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{950176E3-F8CB-8C2A-6E4C-F18804778D13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{950176E3-F8CB-8C2A-6E4C-F18804778D13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{950176E3-F8CB-8C2A-6E4C-F18804778D13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF1E6CD1-8205-48D2-9D17-87C999678075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF1E6CD1-8205-48D2-9D17-87C999678075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF1E6CD1-8205-48D2-9D17-87C999678075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF1E6CD1-8205-48D2-9D17-87C999678075}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

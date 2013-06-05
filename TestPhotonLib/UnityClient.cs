@@ -5,6 +5,8 @@ using System.Text;
 using ExitGames.Logging;
 using Photon.SocketServer;
 using PhotonHostRuntimeInterfaces;
+using TestPhotonLib.Common;
+using TestPhotonLib.Operations;
 
 namespace TestPhotonLib
 {
@@ -21,14 +23,17 @@ namespace TestPhotonLib
         {
             switch (operationRequest.OperationCode)
             {
-                case 1:
-                    if (operationRequest.Parameters.ContainsKey(1))
+                case (byte)OperationCode.Login:
+                    var loginRequest = new Login(Protocol, operationRequest);
+
+                    if (!loginRequest.IsValid)
                     {
-                        Log.Debug("recv:" + operationRequest.Parameters[1]);
-                        OperationResponse response = new OperationResponse(operationRequest.OperationCode);
-                        response.Parameters = new Dictionary<byte, object> { { 1, "response message" } };
-                        SendOperationResponse(response, sendParameters);
+                        SendOperationResponse(loginRequest.GetResponse(ErrorCode.InvalidParameters), sendParameters);
+                        return;
                     }
+
+                    string charName = loginRequest.CharacterName;
+                    Log.Info("user with name:" + charName);
                     break;
                 case 2:
                     if (operationRequest.Parameters.ContainsKey(1))
