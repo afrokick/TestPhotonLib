@@ -1,7 +1,7 @@
 ﻿namespace TestPhotonLib.Common
 {
-    public enum EventCode:byte
+    public enum OperationCode:byte
     {
-
+        Login
     }
 }
