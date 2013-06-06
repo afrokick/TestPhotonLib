@@ -49,15 +49,61 @@ namespace TestPhotonLib
 
                     Log.Info("user with name:" + CharacterName);
                     break;
-                case 2:
-                    if (operationRequest.Parameters.ContainsKey(1))
+                case (byte)OperationCode.SendChatMessage:
                     {
-                        Log.Debug("recv:" + operationRequest.Parameters[1]);
-                        EventData eventdata = new EventData(1);
-                        eventdata.Parameters = new Dictionary<byte, object> { { 1, "response for event" } };
-                        SendEvent(eventdata, sendParameters);
+                        var chatRequest = new ChatMessage(Protocol, operationRequest);
+
+                        if (!chatRequest.IsValid)
+                        {
+                            SendOperationResponse(chatRequest.GetResponse(ErrorCode.InvalidParameters), sendParameters);
+                            return;
+                        }
+
+                        string message = chatRequest.Message;
+
+                        string[] param = message.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (param.Length == 2)
+                        {
+                            string targetName = param[0];
+                            message = param[1];
+                            if (World.Instance.IsContain(targetName))
+                            {
+                                var targetClient = World.Instance.TryGetByName(targetName);
+                                if (targetClient == null)
+                                    return;
+
+                                message = CharacterName + "[PM]:" + message;
+
+                                var personalEventData = new EventData((byte)EventCode.ChatMessage);
+                                personalEventData.Parameters = new Dictionary<byte, object> { { (byte)ParameterCode.ChatMessage, message } };
+                                personalEventData.SendTo(new UnityClient[] { this, targetClient }, sendParameters);
+                            }
+                            return;
+                        }
+
+                        message = CharacterName + ": " + message;
+
+                        Chat.Instance.AddMessage(message);
+
+                        var eventData = new EventData((byte)EventCode.ChatMessage);
+                        eventData.Parameters = new Dictionary<byte, object> { { (byte)ParameterCode.ChatMessage, message } };
+                        eventData.SendTo(World.Instance.Clients, sendParameters);
                     }
+                   
                     break;
+
+                case (byte)OperationCode.GetRecentChatMessages:
+                    {
+                        var messages = Chat.Instance.GetRecentMessages();
+                        messages.Reverse();
+                        var message = messages.Aggregate((i, j) => i + "\r\n" + j);
+                        var eventData = new EventData((byte)EventCode.ChatMessage);
+                        eventData.Parameters = new Dictionary<byte, object> { { (byte)ParameterCode.ChatMessage, message } };
+                        eventData.SendTo(new UnityClient[] {this}, sendParameters);
+                    }
+                    
+                    break;
+
                 default:
                     Log.Debug("Unknown OperationRequest received!:" + operationRequest.OperationCode);
                     break;

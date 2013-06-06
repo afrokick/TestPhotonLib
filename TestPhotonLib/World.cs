@@ -8,7 +8,7 @@ namespace TestPhotonLib
     {
         public static readonly World Instance = new World();
 
-        private List<UnityClient> Clients { get; set; }
+        public List<UnityClient> Clients { get; private set; }
 
         private readonly ReaderWriterLockSlim readWriteLock;
 
@@ -16,6 +16,14 @@ namespace TestPhotonLib
         {
             Clients = new List<UnityClient>();
             readWriteLock = new ReaderWriterLockSlim();
+        }
+
+        public UnityClient TryGetByName(string name)
+        {
+            using (ReadLock.TryEnter(this.readWriteLock, 1000))
+            {
+                return Clients.Find(n => n.CharacterName.Equals(name));
+            }
         }
 
         public bool IsContain(string name)

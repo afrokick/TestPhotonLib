@@ -18,11 +18,16 @@ public class PhotonServer : MonoBehaviour, IPhotonPeerListener
     private PhotonPeer PhotonPeer { get; set; }
 
     public event EventHandler<LoginEventArgs> OnLoginResponse;
+    public event EventHandler<ChatMessageEventArgs> OnReceiveChatMessage;
 
     void Awake()
     {
         if (Instance != null)
+        {
             DestroyObject(gameObject);
+            return;
+        }
+            
 
         DontDestroyOnLoad(gameObject);
 
@@ -82,11 +87,8 @@ public class PhotonServer : MonoBehaviour, IPhotonPeerListener
     {
         switch (eventData.Code)
         {
-            case 1:
-                if (eventData.Parameters.ContainsKey(1))
-                {
-                    Debug.Log("recv event:" + eventData.Parameters[1]);
-                }
+            case (byte)EventCode.ChatMessage:
+                ChatMessageHandler(eventData);
                 break;
             default:
                 Debug.Log("Unknown Event:" + eventData.Code);
@@ -151,6 +153,14 @@ public class PhotonServer : MonoBehaviour, IPhotonPeerListener
             OnLoginResponse(this, new LoginEventArgs(ErrorCode.Ok));
     }
 
+    private void ChatMessageHandler(EventData eventData)
+    {
+        string message = (string)eventData.Parameters[(byte) ParameterCode.ChatMessage];
+
+        if (OnReceiveChatMessage != null)
+            OnReceiveChatMessage(this, new ChatMessageEventArgs(message));
+    }
+
     #endregion
     
     
@@ -162,5 +172,15 @@ public class PhotonServer : MonoBehaviour, IPhotonPeerListener
                             new Dictionary<byte, object> {{(byte) ParameterCode.CharacterName, name}}, true);
     }
 
+    public void SendChatMessage(string message)
+    {
+        PhotonPeer.OpCustom((byte)OperationCode.SendChatMessage,
+                           new Dictionary<byte, object> { { (byte)ParameterCode.ChatMessage, message } }, true);
+    }
+
+    public void GetRecentChatMessage()
+    {
+        PhotonPeer.OpCustom((byte) OperationCode.GetRecentChatMessages, new Dictionary<byte, object>(), true);
+    }
     #endregion
 }

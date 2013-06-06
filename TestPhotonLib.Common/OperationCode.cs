@@ -3,5 +3,7 @@
     public enum OperationCode:byte
     {
         Login,
+        GetRecentChatMessages,
+        SendChatMessage,
     }
 }

@@ -2,6 +2,6 @@
 {
     public enum EventCode:byte
     {
-
+        ChatMessage,
     }
 }
