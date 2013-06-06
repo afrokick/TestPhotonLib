@@ -17,6 +17,8 @@ public class PhotonServer : MonoBehaviour, IPhotonPeerListener
 
     private PhotonPeer PhotonPeer { get; set; }
 
+    public event EventHandler<LoginEventArgs> OnLoginResponse;
+
     void Awake()
     {
         if (Instance != null)
@@ -68,7 +70,7 @@ public class PhotonServer : MonoBehaviour, IPhotonPeerListener
         switch (operationResponse.OperationCode)
         {
             case (byte)OperationCode.Login:
-                Debug.Log("Login returnCode:" + operationResponse.ReturnCode);
+                LoginHandler(operationResponse);
                 break;
             default:
                 Debug.Log("Unknown OperationResponse:" + operationResponse.OperationCode);
@@ -98,7 +100,6 @@ public class PhotonServer : MonoBehaviour, IPhotonPeerListener
         {
             case StatusCode.Connect:
                 Debug.Log("Connected to server!");
-                SendOperation();
                 break;
             case StatusCode.Disconnect:
                 Debug.Log("Disconnected from server!");
@@ -125,17 +126,40 @@ public class PhotonServer : MonoBehaviour, IPhotonPeerListener
         }
     }
 
-    #region Up-level API
+    #region handlers for response
 
-    public void SendOperation()
+    private void LoginHandler(OperationResponse operationResponse)
     {
-        PhotonPeer.OpCustom((byte) OperationCode.Login,
-                            new Dictionary<byte, object> {{(byte)ParameterCode.CharacterName, "MyNAme"}}, true);
+        if (operationResponse.ReturnCode != 0)
+        {
+            ErrorCode errorCode = (ErrorCode) operationResponse.ReturnCode;
+            switch (errorCode)
+            {
+                    case ErrorCode.NameIsExist:
+                    if (OnLoginResponse != null)
+                        OnLoginResponse(this, new LoginEventArgs(ErrorCode.NameIsExist));
+                    break;
+                default:
+                    Debug.Log("Error Login returnCode:" + operationResponse.ReturnCode);
+                    break;
+            }
+            
+            return;
+        }
+
+        if (OnLoginResponse != null)
+            OnLoginResponse(this, new LoginEventArgs(ErrorCode.Ok));
     }
 
-    public void SendOperation2()
+    #endregion
+    
+    
+    #region Up-level API
+
+    public void SendLoginOperation(string name)
     {
-        PhotonPeer.OpCustom(2, new Dictionary<byte, object> { { 1, "send message for event" } }, false);
+        PhotonPeer.OpCustom((byte) OperationCode.Login,
+                            new Dictionary<byte, object> {{(byte) ParameterCode.CharacterName, name}}, true);
     }
 
     #endregion

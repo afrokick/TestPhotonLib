@@ -2,6 +2,6 @@
 {
     public enum OperationCode:byte
     {
-        Login
+        Login,
     }
 }

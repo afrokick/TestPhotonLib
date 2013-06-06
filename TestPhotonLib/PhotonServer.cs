@@ -6,6 +6,7 @@ using System.Text;
 using ExitGames.Logging;
 using ExitGames.Logging.Log4Net;
 using Photon.SocketServer;
+using TestPhotonLib.Common;
 using log4net.Config;
 
 namespace TestPhotonLib
@@ -17,7 +18,6 @@ namespace TestPhotonLib
         protected override PeerBase CreatePeer(InitRequest initRequest)
         {
             Log.Debug("connect new client...");
-
             return new UnityClient(initRequest.Protocol, initRequest.PhotonPeer);
         }
 

@@ -14,6 +14,8 @@ namespace TestPhotonLib
     {
         private readonly ILogger Log = LogManager.GetCurrentClassLogger();
 
+        public string CharacterName { get; private set; }
+
         public UnityClient(IRpcProtocol protocol, IPhotonPeer unmanagedPeer) : base(protocol, unmanagedPeer)
         {
             Log.Debug("Client ip:" + unmanagedPeer.GetRemoteIP());
@@ -32,8 +34,20 @@ namespace TestPhotonLib
                         return;
                     }
 
-                    string charName = loginRequest.CharacterName;
-                    Log.Info("user with name:" + charName);
+                    CharacterName = loginRequest.CharacterName;
+
+                    if (World.Instance.IsContain(CharacterName))
+                    {
+                        SendOperationResponse(loginRequest.GetResponse(ErrorCode.NameIsExist), sendParameters);
+                        return;
+                    }
+
+                    World.Instance.AddClient(this);
+
+                    var response = new OperationResponse(operationRequest.OperationCode);
+                    SendOperationResponse(response, sendParameters);
+
+                    Log.Info("user with name:" + CharacterName);
                     break;
                 case 2:
                     if (operationRequest.Parameters.ContainsKey(1))
@@ -52,6 +66,7 @@ namespace TestPhotonLib
 
         protected override void OnDisconnect(DisconnectReason reasonCode, string reasonDetail)
         {
+            World.Instance.RemoveClient(this);
             Log.Debug("Disconnected!");
         }
     }
