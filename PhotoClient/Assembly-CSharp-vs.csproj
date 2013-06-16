@@ -47,6 +47,8 @@
      <Compile Include="Assets\_Scripts\Chat.cs" />
      <Compile Include="Assets\_Scripts\Login.cs" />
      <Compile Include="Assets\_Scripts\PhotonServer.cs" />
+     <Compile Include="Assets\_Scripts\Player.cs" />
+     <Compile Include="Assets\_Scripts\World.cs" />
      <None Include="Assets\Plugins\Photon3Unity3D.xml" />
  <Reference Include="Photon3Unity3D">
  <HintPath>Assets\Plugins\Photon3Unity3D.dll</HintPath>

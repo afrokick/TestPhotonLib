@@ -42,7 +42,7 @@ public class Login : MonoBehaviour {
         }
 
         PhotonServer.Instance.OnLoginResponse -= OnLoginHandler;
-
+        PhotonServer.Instance.CharacterName = CharacterName;
         Application.LoadLevel("Game");
     }
 }

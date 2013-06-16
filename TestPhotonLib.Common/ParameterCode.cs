@@ -4,5 +4,9 @@
     {
         CharacterName,
         ChatMessage,
+        PosX,
+        PosY,
+        PosZ,
+        ListPlayers,
     }
 }

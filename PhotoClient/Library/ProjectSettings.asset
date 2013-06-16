@@ -14,10 +14,10 @@ PlayerSettings:
   productName: PhotoClient
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  defaultScreenWidth: 1024
-  defaultScreenHeight: 768
-  defaultScreenWidthWeb: 960
-  defaultScreenHeightWeb: 600
+  defaultScreenWidth: 640
+  defaultScreenHeight: 480
+  defaultScreenWidthWeb: 640
+  defaultScreenHeightWeb: 480
   m_RenderingPath: 1
   m_ActiveColorSpace: 0
   m_MTRendering: 1
@@ -33,7 +33,7 @@ PlayerSettings:
   use32BitDisplayBuffer: 1
   use24BitDepthBuffer: 0
   defaultIsFullScreen: 0
-  runInBackground: 0
+  runInBackground: 1
   captureSingleScreen: 0
   Override IPod Music: 0
   enableHWStatistics: 1
@@ -99,9 +99,13 @@ PlayerSettings:
   AndroidKeystoreName: 
   AndroidKeyaliasName: 
   resolutionDialogBanner: {fileID: 0}
-  m_BuildTargetIcons: []
+  m_BuildTargetIcons:
+  - m_BuildTarget: 
+    m_Icons:
+    - m_Icon: {fileID: 0}
+      m_Size: 128
   m_BuildTargetBatching: []
-  webPlayerTemplate: APPLICATION:Default
+  webPlayerTemplate: APPLICATION:No Context Menu
   m_TemplateCustomTags: {}
   wiiRegion: 1
   wiiGameCode: RABA

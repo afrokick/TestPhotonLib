@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Chat.cs" />
     <Compile Include="Operations\BaseOperation.cs" />
+    <Compile Include="Operations\Move.cs" />
     <Compile Include="Operations\Login.cs" />
     <Compile Include="Operations\ChatMessage.cs" />
     <Compile Include="PhotonServer.cs" />

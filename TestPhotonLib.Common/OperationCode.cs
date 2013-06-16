@@ -5,5 +5,9 @@
         Login,
         GetRecentChatMessages,
         SendChatMessage,
+        Move,
+        WorldEnter,
+        WorldExit,
+        ListPlayers,
     }
 }
