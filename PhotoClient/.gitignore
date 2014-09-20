@@ -1,4 +1,40 @@
-/TEMP/*
-/PhotoClient-csharp.sln
-/PhotoClient-csharp.suo
-/PhotoClient.sln
+# =============== #
+# Unity generated #
+# =============== #
+Temp/
+Obj/
+UnityGenerated/
+Library/
+ 
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+ 
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+/WebPlayer/
+/Game_Data/
+/*.exe
+/*.apk
+/pidobear.zip
+/XCodeProject/
+/NData2/
